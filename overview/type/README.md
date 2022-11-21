@@ -26,7 +26,7 @@ N bytes to store 1 Unicode character.
 ### Byte (uint8)
 - A byte is an uint8 value that is used for representing a single ASCII character. 
 - []byte{} is used for I/O performing. 
-- Examples: 
+#### Examples: 
     var a byte = 97
     fmt.Printf("%T",a)
     // uint8
@@ -36,7 +36,7 @@ N bytes to store 1 Unicode character.
     // 97
 ### Rune
 - A rune is an int32 value that is used for representing a single Unicode code point 
-- Examples: 
+#### Examples:
     r := '€'
     fmt.Printf("%T",r)
     // int32 
