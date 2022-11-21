@@ -37,13 +37,12 @@ N bytes to store 1 Unicode character.
 ### Rune
 - A rune is an int32 value that is used for representing a single Unicode code point 
 - Examples: 
-
-    r := '€' 
-    fmt.Printf("%T",r) 
-    // int32
+    r := '€'
+    fmt.Printf("%T",r)
+    // int32 
     fmt.Println(r)
     // 8364
-    fmt.Printf("%c",r) 
+    fmt.Printf("%c",r)
     // €
 
 **Note:**
