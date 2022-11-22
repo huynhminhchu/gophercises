@@ -28,12 +28,14 @@ N bytes to store 1 Unicode character.
 - []byte{} is used for I/O performing. 
 #### Examples: 
     var a byte = 97
-    fmt.Printf("%T",a)
-    // uint8
-    fmt.Printf("%c",a)
-    // a
-    fmt.Println(a)
-    // 97
+    fmt.Printf("%T",a)     // uint8
+    fmt.Printf("%c",a)    // a
+    fmt.Println(a)    // 97
+
+    b := make([]byte, 12)
+	b = []byte("Byte slice €")
+	fmt.Println("Byte slice as text: \n", string(b)) // byte slice to string
+
 ### Rune
 - A rune is an int32 value that is used for representing a single Unicode code point 
 #### Examples:
@@ -52,7 +54,19 @@ N bytes to store 1 Unicode character.
 
 ## Array
 Examples:
-    [4]string{"Zero", "One", "Two", "Three"} 
+    var a = [2]string{"Zero", "One"} 
+    var S0 = a[0:1] // S0 = slice
+	S0[0] = "S0" // Change to slice will affect array
+    fmt.Println(a)
+    //["S0","One","Two","Three"]
+
+    //As the capacity of S0 changes, it is no longer connected to the same underlying array
+    S0 = append(S0, "N1")
+    S0 = append(S0, "N2")
+    S0[0] = "S0_2"
+    fmt.Println(a)
+    //["S0","One","Two","Three"]
+
 ## Slice
 - Any changes you make to a slice inside a function also affect the original slice 
 ### Create slice
