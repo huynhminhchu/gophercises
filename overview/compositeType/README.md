@@ -11,7 +11,8 @@ Declare:
         "key2":-2
     }
 
-    anotherMap := make(map[string]string)
+    anotherMap := make(map[string]string) 
+    
 Search: 
     //If ok = true then v exists 
     v, ok := aMap[k]  
