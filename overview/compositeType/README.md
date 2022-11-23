@@ -1,9 +1,10 @@
 # Golang Composite types
 
 ## Map
-Declare:
-    aMap := map[string]int{}
-    aMap["test"] = 1
+Declare: 
+
+    aMap := map[string]int{} 
+    aMap["test"] = 1 
 
     m := map[string]int {
         "key1":1,
@@ -11,13 +12,13 @@ Declare:
     }
 
     anotherMap := make(map[string]string)
-Search:
-    //If ok = true then v exists
-    v, ok := aMap[k] 
-Iterate:
-    for i, v := range aMap {
-        fmt.Println(i,v)
-    }
+Search: 
+    //If ok = true then v exists 
+    v, ok := aMap[k]  
+Iterate: 
+    for i, v := range aMap { 
+        fmt.Println(i,v) 
+    } 
 ## Struct
 Declare:
     type Entry struct {
