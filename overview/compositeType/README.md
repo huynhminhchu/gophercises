@@ -1,8 +1,7 @@
 # Golang Composite types
 
 ## Map
-Declare: 
-
+### Declare:
     aMap := map[string]int{} 
     aMap["test"] = 1 
 
@@ -12,22 +11,29 @@ Declare:
     }
 
     anotherMap := make(map[string]string) 
-    
-Search: 
+
+    // Note:
+    var aMap = map[string]int
+    aMap["chu"] = "dep" // Error
+    // We have to allocate this nil map before assigning, like this:
+    aMap = make(map[string]int)
+
+
+### Search: 
     //If ok = true then v exists 
     v, ok := aMap[k]  
-Iterate: 
+### Iterate: 
     for i, v := range aMap { 
         fmt.Println(i,v) 
     } 
 ## Struct
-Declare:
+### Declare:
     type Entry struct {
         Name string
         Surname string
         Tel string
     }
-Create new instances:
+### Create new instances:
     pS := new(Entry)
     pS2 := Entry{Name: "chu", Surname: "minh", Tel: "01234567"}
 

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/csv"
 	"fmt"
 	"math/rand"
 	"os"
@@ -8,33 +9,37 @@ import (
 )
 
 var data []phoneEntry
-
-func random(min, max int) int {
-	return rand.Intn(max-min+1) + min
-}
-
-func randomStr(len int) string {
-	temp := ""
-	for i := 0; i < len; i++ {
-		temp += string(byte(random(65, 90)))
-	}
-	return temp
-}
+var index map[string]int
 
 type phoneEntry struct {
-	Name    string
-	Surname string
-	Tel     string
+	Name       string
+	Surname    string
+	Tel        string
+	LastAccess string
+}
+
+func initEntry(N, S, T, L string) *phoneEntry {
+	temp := phoneEntry{N, S, T, L}
+	return &temp
 }
 
 func search(key string) *phoneEntry {
-	for i := range data {
-		if data[i].Tel == key {
-			return &data[i]
-		}
+	i, ok := index[key]
+	if !ok {
+		return nil
 	}
-	return nil
+	return &data[i]
 }
+
+func createIndex() {
+	index = make(map[string]int)
+	for i, v := range data {
+		fmt.Println(v.Tel)
+		fmt.Println(i)
+		index[v.Tel] = i
+	}
+}
+
 func list() {
 	for i := range data {
 		fmt.Printf("%d.Name: %s\n", i+1, data[i].Name)
@@ -42,19 +47,82 @@ func list() {
 		fmt.Printf("Tel: %s\n", data[i].Tel)
 	}
 }
+
+func insert() {
+
+	return
+}
+func delete() {
+	return
+}
+func validateTel(tel string) bool {
+	return true
+}
+
+func checkCSVFile(CSVFILE string) {
+	_, err := os.Stat(CSVFILE)
+
+	if os.IsNotExist(err) {
+		fmt.Println("Creating new file ...")
+		f, err := os.Create(CSVFILE)
+		if err != nil {
+			fmt.Println("Error creating new csv file. Exit")
+			return
+		}
+		f.Close()
+	}
+
+	fileInfo, err := os.Stat(CSVFILE)
+	if err == nil {
+		mode := fileInfo.Mode()
+		if !mode.IsRegular() {
+			fmt.Println(CSVFILE, " is not a regular file. Exiting")
+			return
+		}
+	}
+}
+func readCSVFile(CSVFILE string) {
+	file, err := os.Open(CSVFILE)
+	if err != nil {
+		fmt.Println("Err open csv file: ", err)
+		return
+	}
+	r := csv.NewReader(file)
+	lines, _ := r.ReadAll()
+
+	for _, line := range lines {
+		data = append(data, phoneEntry{
+			Name:       line[0],
+			Surname:    line[1],
+			Tel:        line[2],
+			LastAccess: line[3],
+		})
+	}
+}
+func saveCSVFile(CSVFILE string) {
+	file, err := os.Open(CSVFILE)
+	if err != nil {
+		fmt.Println("Err open csv file: ", err)
+		return
+	}
+
+}
+
 func help() {
-	fmt.Println("Usage: ./phoneBook search|list <arguments.")
+	fmt.Println("Usage: ./phoneBook search|list|delete|insert <arguments.")
 }
 func main() {
 	rand.Seed(time.Now().UnixNano())
+	CSVFILE := "./data.csv"
 
-	for i := 0; i < 100; i++ {
-		randomTel := string(byte(random(48, 57))) + string(byte(random(48, 57))) + string(byte(random(48, 57)))
-		temp := phoneEntry{randomStr(4), randomStr(5), string(randomTel)}
-		data = append(data, temp)
-	}
+	checkCSVFile(CSVFILE)
+	readCSVFile(CSVFILE)
+	fmt.Println("Data: ", data)
+
+	createIndex()
+	fmt.Println("Map index: ", index)
+
 	arguments := os.Args
-
 	if len(arguments) < 2 {
 		help()
 		return

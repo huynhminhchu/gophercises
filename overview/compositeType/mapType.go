@@ -15,4 +15,11 @@ func main() {
 		aMap = map[string]int{}
 	}
 	fmt.Println(aMap)
+
+	myMap := map[string]string{"chu": "dep"}
+
+	for i, v := range myMap {
+		fmt.Print("i:", i, " v:", v)
+	}
+
 }
