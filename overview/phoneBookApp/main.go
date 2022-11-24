@@ -34,8 +34,6 @@ func search(key string) *phoneEntry {
 func createIndex() {
 	index = make(map[string]int)
 	for i, v := range data {
-		fmt.Println(v.Tel)
-		fmt.Println(i)
 		index[v.Tel] = i
 	}
 }
@@ -100,11 +98,23 @@ func readCSVFile(CSVFILE string) {
 	}
 }
 func saveCSVFile(CSVFILE string) {
-	file, err := os.Open(CSVFILE)
+	file, err := os.Create(CSVFILE)
 	if err != nil {
 		fmt.Println("Err open csv file: ", err)
 		return
 	}
+	w := csv.NewWriter(file)
+	for _, entry := range data {
+		temp := []string{entry.Name, entry.Surname, entry.Tel, entry.LastAccess}
+		fmt.Println(temp)
+		w.Write(temp)
+		if err := w.Write(temp); err != nil {
+			fmt.Println("error while writing to csv file: ", err)
+		}
+	}
+
+	w.Flush()
+	file.Close()
 
 }
 
@@ -117,10 +127,7 @@ func main() {
 
 	checkCSVFile(CSVFILE)
 	readCSVFile(CSVFILE)
-	fmt.Println("Data: ", data)
-
 	createIndex()
-	fmt.Println("Map index: ", index)
 
 	arguments := os.Args
 	if len(arguments) < 2 {
@@ -142,4 +149,5 @@ func main() {
 	} else if action == "list" {
 		list()
 	}
+	saveCSVFile("./test.csv")
 }
