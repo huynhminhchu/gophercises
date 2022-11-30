@@ -1,0 +1,36 @@
+Using default json records
+**************************
+KEY:  Flag
+... Is true: bool
+KEY:  Array
+... Is [a b c]: []interface {}
+KEY:  Entity
+Is a map! Entity map[Null:<nil> Value:-456 a1:b1 a2:b2]
+**************************
+KEY:  Null
+... Is <nil>: <nil>
+KEY:  a1
+Is a string:  a1 b1
+KEY:  a2
+Is a string:  a2 b2
+KEY:  Value
+Is a float64:  Value -456
+KEY:  Message
+Is a string:  Message Hello Go!
+
+
+KEY: k=flag, value = boolean 
+... Is true: bool
+
+KEY: k=array, value = ["a","b","c"]
+... Is ["a",b","c"]: []interface{} ??? Why not []string{}
+
+KEY: k= entity, value = {
+    "a1": "b1" ,
+	"a2": "b2",
+	"Value": -456,
+	"Null": null
+},
+    KEY: a1
+    ... Is b1: 
+
