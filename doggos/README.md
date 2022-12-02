@@ -1,0 +1,3 @@
+### Web Requests
+- Headers: store things like metadata, cookies,...
+- Request body: store data related specifically to the request. Ex:  if you filled out a sign up form and hit the submit button, your browser would include the data you typed into the form as part of the request body
